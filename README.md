@@ -1,4 +1,4 @@
-#Simple Web Service Skeleton with Golang and Sqlite3**
+#Simple Web Service Skeleton with Golang and Sqlite3
 
 **REQUIREMENT!**<br/>
 Please install sqlite3 inside the box. And then install go-sqlite3 and gorilla mux library.<br/>
