@@ -1,10 +1,13 @@
 package main
 
 import (
-	"log"
-	"github.com/gorilla/mux"
-	"net/http"
 	"database/sql"
+	"log"
+	"net/http"
+
+	"./controllers/"
+	"./helpers/"
+	"github.com/gorilla/mux"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -16,9 +19,10 @@ func main() {
 	defer db.Close()
 
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/", httpLogger(Index))
-	router.HandleFunc("/users", httpLogger(GetUserList(db)))
-	router.HandleFunc("/user/{Id}", httpLogger(GetUser(db)))
+	router.HandleFunc("/", helpers.HttpLogger(controllers.Index()))
+	router.HandleFunc("/users", helpers.HttpLogger(controllers.GetUserList(db)))
+	router.HandleFunc("/user/{Id}", helpers.HttpLogger(controllers.GetUser(db)))
+	router.NotFoundHandler = http.HandlerFunc(helpers.NotFoundLogger)
 
 	log.Fatal(http.ListenAndServe(":9090", router))
 }
